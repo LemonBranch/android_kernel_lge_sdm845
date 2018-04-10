@@ -26,7 +26,8 @@ static void cmdline_proc_patch(char *cmd, const char *flag, const char *val)
 
 static int cmdline_proc_show(struct seq_file *m, void *v)
 {
-	seq_printf(m, "%s\n", updated_command_line);
+	seq_puts(m, updated_command_line);
+	seq_putc(m, '\n');
 	return 0;
 }
 
