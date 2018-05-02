@@ -392,6 +392,10 @@ unsigned long read_word_at_a_time(const void *addr)
 #define __malloc
 #endif
 
+#ifndef __noscs
+# define __noscs
+#endif
+
 /*
  * Allow us to avoid 'defined but not used' warnings on functions and data,
  * as well as force them to be emitted to the assembly file.
