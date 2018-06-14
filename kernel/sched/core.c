@@ -7748,6 +7748,20 @@ static int build_sched_domains(const struct cpumask *cpu_map,
 
 		cpu_attach_domain(sd, d.rd, i);
 	}
+
+	/* set the mid capacity cpu (assumes only 3 capacities) */
+	for_each_cpu(i, cpu_map) {
+		int max_cpu = READ_ONCE(d.rd->max_cap_orig_cpu);
+		int min_cpu = READ_ONCE(d.rd->min_cap_orig_cpu);
+
+		if ((cpu_rq(i)->cpu_capacity_orig
+				!=  cpu_rq(min_cpu)->cpu_capacity_orig) &&
+			(cpu_rq(i)->cpu_capacity_orig
+				!=  cpu_rq(max_cpu)->cpu_capacity_orig)) {
+			WRITE_ONCE(d.rd->mid_cap_orig_cpu, i);
+			break;
+		}
+	}
 	rcu_read_unlock();
 
 	ret = 0;
