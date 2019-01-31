@@ -7761,9 +7761,21 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int sd_flag, int wake_f
 	int sync = wake_flags & WF_SYNC;
 
 	if (sd_flag & SD_BALANCE_WAKE) {
+		int _wake_cap = wake_cap(p, cpu, prev_cpu);
+		int _cpus_allowed = cpumask_test_cpu(cpu, &p->cpus_allowed);
+
+		if (_cpus_allowed) {
+			bool about_to_idle = sysctl_sched_sync_hint_enable &&
+				select_idle_sibling(p, cpu, prev_cpu);
+
+			if (!_wake_cap && about_to_idle) {
+				rcu_read_unlock();
+				return cpu;
+			}
+		}
+
 		record_wakee(p);
-		want_affine = (!wake_wide(p) && !wake_cap(p, cpu, prev_cpu) &&
-			cpumask_test_cpu(cpu, tsk_cpus_allowed(p)));
+		want_affine = (!wake_wide(p) && !_wake_cap && _cpus_allowed);
 	}
 
 	if (energy_aware()) {
