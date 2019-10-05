@@ -115,6 +115,8 @@ extern void cpu_load_update_active(struct rq *this_rq);
 static inline void cpu_load_update_active(struct rq *this_rq) { }
 #endif
 
+extern bool energy_aware(void);
+
 #ifdef CONFIG_SCHED_SMT
 extern void update_idle_core(struct rq *rq);
 #else
@@ -2965,11 +2967,6 @@ static inline void walt_update_min_max_capacity(void) { }
 
 static inline void walt_map_freq_to_load(void) { }
 #endif	/* CONFIG_SCHED_WALT */
-
-static inline bool energy_aware(void)
-{
-	return sched_feat(ENERGY_AWARE);
-}
 
 #ifdef CONFIG_SCHED_CORE_ROTATE
 struct find_first_cpu_bit_env {
