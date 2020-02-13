@@ -166,8 +166,8 @@ unsigned int sysctl_sched_cfs_bandwidth_slice = 5000UL;
  * The margin used when comparing utilization with CPU capacity:
  * util * margin < capacity * 1024
  */
-unsigned int sysctl_sched_capacity_margin = 1078; /* ~5% margin */
-unsigned int sysctl_sched_capacity_margin_down = 1205; /* ~15% margin */
+unsigned int sysctl_sched_capacity_margin = 1280; /* ~20% margin */
+unsigned int sysctl_sched_capacity_margin_down = 1280; /* ~20% margin */
 #define capacity_margin sysctl_sched_capacity_margin
 
 #ifdef CONFIG_SCHED_WALT
