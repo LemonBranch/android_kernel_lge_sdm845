@@ -4633,7 +4633,7 @@ static int sde_crtc_atomic_check(struct drm_crtc *crtc,
 		struct drm_crtc_state *state)
 {
 	struct sde_crtc *sde_crtc;
-	struct plane_state *pstates = NULL;
+	struct plane_state pstates[SDE_PSTATES_MAX];
 	struct sde_crtc_state *cstate;
 
 	const struct drm_plane_state *pstate;
@@ -4661,13 +4661,12 @@ static int sde_crtc_atomic_check(struct drm_crtc *crtc,
 		goto end;
 	}
 
-	pstates = kzalloc(SDE_PSTATES_MAX *
-			sizeof(struct plane_state), GFP_KERNEL);
+	memset(pstates, 0, SDE_PSTATES_MAX * sizeof(struct plane_state));
 
 	multirect_plane = kzalloc(SDE_MULTIRECT_PLANE_MAX *
 		sizeof(struct sde_multirect_plane_states), GFP_KERNEL);
 
-	if (!pstates || !multirect_plane) {
+	if (!multirect_plane) {
 		rc = -ENOMEM;
 		goto end;
 	}
@@ -4940,7 +4939,6 @@ static int sde_crtc_atomic_check(struct drm_crtc *crtc,
 	}
 
 end:
-	kfree(pstates);
 	kfree(multirect_plane);
 	_sde_crtc_rp_free_unused(&cstate->rp);
 	return rc;
