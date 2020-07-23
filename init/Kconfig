@@ -867,6 +867,15 @@ config IKCONFIG_PROC
 	  This option enables access to the kernel configuration file
 	  through /proc/config.gz.
 
+config IKCONFIG_HACK
+	string "Kernel config to be expressed to userspace through /proc/config.gz"
+	depends on IKCONFIG_PROC
+	default ""
+	---help---
+	  Userspace reads /proc/config.gz and may react differently depending
+	  on the kernel's configuration. This option provides an alternative
+	  configuration to userspace.
+
 config IKHEADERS
 	tristate "Enable kernel headers through /sys/kernel/kheaders.tar.xz"
 	depends on SYSFS
