@@ -125,11 +125,11 @@ $(obj)/configs.o: $(obj)/config_data.h
 # config_data.h contains the same information as ikconfig.h but gzipped.
 # Info from config_data can be extracted from /proc/config*
 targets += config_data.gz
-ifeq ($(strip $(CONFIG_IKCONFIG_HACK)),)
+ifeq ($(CONFIG_IKCONFIG_HACK),\"\")
 $(obj)/config_data.gz: $(KCONFIG_CONFIG) FORCE
 	$(call if_changed,gzip)
 else
-$(obj)/config_data.gz: $(CONFIG_IKCONFIG_HACK) FORCE
+$(obj)/config_data.gz: $(shell pwd)/$(patsubst \",,$(CONFIG_IKCONFIG_HACK)) FORCE
 	$(call if_changed,gzip)
 endif
 
