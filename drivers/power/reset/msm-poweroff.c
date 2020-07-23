@@ -61,7 +61,7 @@ static bool scm_deassert_ps_hold_supported;
 static void __iomem *msm_ps_hold;
 static phys_addr_t tcsr_boot_misc_detect;
 static void scm_disable_sdi(void);
-static bool force_warm_reboot;
+static bool force_warm_reboot = true;
 #ifndef CONFIG_LGE_HANDLE_PANIC
 
 #ifdef CONFIG_QCOM_DLOAD_MODE
