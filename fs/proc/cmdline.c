@@ -5,44 +5,27 @@
 #include <asm/setup.h>
 #include <soc/qcom/lge/board_lge.h>
 #include <linux/slab.h>
-	
+
 static char updated_command_line[COMMAND_LINE_SIZE];
-	
-static void proc_cmdline_set(char *name, char *value)	
+
+static void cmdline_proc_patch(char *cmd, const char *flag, const char *val)
 {
-	char *flag_pos, *flag_after;
-	char *flag_pos_str = kmalloc(sizeof(char), COMMAND_LINE_SIZE);
-	scnprintf(flag_pos_str, COMMAND_LINE_SIZE, "%s=", name);
-	flag_pos = strstr(updated_command_line, flag_pos_str);
-	if (flag_pos) {
-		flag_after = strchr(flag_pos, ' ');
-		if (!flag_after)
-			flag_after = "";
-		scnprintf(updated_command_line, COMMAND_LINE_SIZE, "%.*s%s=%s%s",
-				(int)(flag_pos - updated_command_line),
-				updated_command_line, name, value, flag_after);
-	} else {
-		// flag was found, insert it
-		scnprintf(updated_command_line, COMMAND_LINE_SIZE, "%s %s=%s", updated_command_line, name, value);
-	}	
+	size_t flag_len, val_len;
+	char *start, *end;
+
+	start = strstr(cmd, flag);
+	if (!start)
+		return;
+
+	flag_len = strlen(flag);
+	val_len = strlen(val);
+	end = start + flag_len + strcspn(start + flag_len, " ");
+	memmove(start + flag_len + val_len, end, strlen(end) + 1);
+	memcpy(start + flag_len, val, val_len);
 }
 
 static int cmdline_proc_show(struct seq_file *m, void *v)
 {
-#ifdef CONFIG_MACH_LGE
-	if (lge_get_boot_mode() == LGE_BOOT_MODE_CHARGERLOGO) {
-		proc_cmdline_set("androidboot.mode", "charger");
-	}	
-#endif
-
-	/*
-	 * Patch various flags from command line seen by userspace in order to
-	 * pass SafetyNet checks.
-	 */
-	proc_cmdline_set("androidboot.flash.locked=", "1");
-	proc_cmdline_set("androidboot.verifiedbootstate=", "green");
-	proc_cmdline_set("androidboot.veritymode=", "enforcing");
-
 	seq_printf(m, "%s\n", updated_command_line);
 	return 0;
 }
@@ -61,8 +44,20 @@ static const struct file_operations cmdline_proc_fops = {
 
 static int __init proc_cmdline_init(void)
 {
-	// copy it only once	
 	strcpy(updated_command_line, saved_command_line);
+
+#ifdef CONFIG_MACH_LGE
+	if (lge_get_boot_mode() == LGE_BOOT_MODE_CHARGERLOGO)
+		 cmdline_proc_patch(updated_command_line, "androidboot.mode", "charger");
+#endif
+
+	/*
+	 * Patch various flags from command line seen by userspace in order to
+	 * pass SafetyNet checks.
+	 */
+	 cmdline_proc_patch(updated_command_line, "androidboot.flash.locked=", "1");
+	 cmdline_proc_patch(updated_command_line, "androidboot.verifiedbootstate=", "green");
+	 cmdline_proc_patch(updated_command_line, "androidboot.veritymode=", "enforcing");
 
 	proc_create("cmdline", 0, NULL, &cmdline_proc_fops);
 	return 0;
