@@ -34,6 +34,15 @@ static int cmdline_proc_show(struct seq_file *m, void *v)
 		proc_cmdline_set("androidboot.mode", "charger");
 	}	
 #endif
+
+	/*
+	 * Patch various flags from command line seen by userspace in order to
+	 * pass SafetyNet checks.
+	 */
+	proc_cmdline_set("androidboot.flash.locked=", "1");
+	proc_cmdline_set("androidboot.verifiedbootstate=", "green");
+	proc_cmdline_set("androidboot.veritymode=", "enforcing");
+
 	seq_printf(m, "%s\n", updated_command_line);
 	return 0;
 }
