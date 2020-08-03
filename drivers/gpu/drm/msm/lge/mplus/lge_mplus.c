@@ -435,7 +435,6 @@ int lge_mplus_backlight_dimming(struct backlight_device *bd,
 				msm_mode_object_event_notify(&c_conn->base.base,
 						c_conn->base.dev, &event, (u8 *)&brightness);
 				c_conn->ops.set_backlight(c_conn->display, bl_lvl);
-				pr_info("BR:%d BL:%d %s\n", brightness, bl_lvl, lge_get_blmapname(bl_type));
 			}
 			msleep(dim_delay);
 		}
@@ -454,7 +453,6 @@ int lge_mplus_backlight_dimming(struct backlight_device *bd,
 				msm_mode_object_event_notify(&c_conn->base.base,
 						c_conn->base.dev, &event, (u8 *)&brightness);
 				c_conn->ops.set_backlight(c_conn->display, bl_lvl);
-				pr_info("BR:%d BL:%d %s\n", brightness, bl_lvl, lge_get_blmapname(bl_type));
 			}
 			mdelay(dim_delay);
 		}
