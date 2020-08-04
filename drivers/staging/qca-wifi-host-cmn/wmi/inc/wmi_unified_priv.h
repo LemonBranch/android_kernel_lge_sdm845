@@ -34,12 +34,12 @@
 #define WMI_UNIFIED_MAX_EVENT 0x100
 #define WMI_MAX_CMDS 1024
 
-#ifdef WMI_INTERFACE_EVENT_LOGGING
-
 #define WMI_EVENT_DEBUG_MAX_ENTRY (1024)
 #define WMI_EVENT_DEBUG_ENTRY_MAX_LENGTH (16)
 /* wmi_mgmt commands */
 #define WMI_MGMT_EVENT_DEBUG_MAX_ENTRY (256)
+
+#ifdef WMI_INTERFACE_EVENT_LOGGING
 
 /**
  * struct wmi_command_debug - WMI command log buffer data type

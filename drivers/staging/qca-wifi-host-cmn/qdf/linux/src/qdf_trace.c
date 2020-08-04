@@ -288,6 +288,7 @@ void qdf_snprintf(char *str_buffer, unsigned int size, char *str_format, ...)
 }
 qdf_export_symbol(qdf_snprintf);
 
+#ifdef WLAN_DEBUG
 #ifdef MULTI_IF_NAME
 static const char *qdf_trace_wlan_modname(void)
 {
@@ -343,6 +344,7 @@ void qdf_vtrace_msg(QDF_MODULE_ID module, QDF_TRACE_LEVEL level,
 	}
 }
 qdf_export_symbol(qdf_vtrace_msg);
+#endif
 
 /**
  * qdf_trace_msg() - externally called trace function
@@ -1807,7 +1809,7 @@ void qdf_dp_display_proto_pkt(struct qdf_dp_trace_record_s *record,
 {
 	int loc;
 	char prepend_str[QDF_DP_TRACE_PREPEND_STR_SIZE];
-	struct qdf_dp_trace_proto_buf *buf =
+	struct qdf_dp_trace_proto_buf *buf __maybe_unused =
 		(struct qdf_dp_trace_proto_buf *)record->data;
 
 	loc = qdf_dp_trace_fill_meta_str(prepend_str, sizeof(prepend_str),
@@ -2157,7 +2159,7 @@ static void qdf_dpt_display_proto_pkt_debugfs(qdf_debugfs_file_t file,
 {
 	int loc;
 	char prepend_str[QDF_DP_TRACE_PREPEND_STR_SIZE];
-	struct qdf_dp_trace_proto_buf *buf =
+	struct qdf_dp_trace_proto_buf *buf __maybe_unused =
 		(struct qdf_dp_trace_proto_buf *)record->data;
 
 	loc = qdf_dp_trace_fill_meta_str(prepend_str, sizeof(prepend_str),
