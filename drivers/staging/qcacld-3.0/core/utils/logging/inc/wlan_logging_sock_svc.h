@@ -33,13 +33,14 @@ int wlan_logging_sock_init_svc(void);
 int wlan_logging_sock_deinit_svc(void);
 int wlan_log_to_user(QDF_TRACE_LEVEL log_level, char *to_be_sent, int length);
 
+void wlan_logging_set_active(bool active);
+void wlan_logging_set_log_to_console(bool log_to_console);
+
 #ifdef WLAN_LOGGING_SOCK_SVC_ENABLE
 void wlan_logging_set_per_pkt_stats(void);
 void wlan_logging_set_log_level(void);
 void wlan_logging_set_fw_flush_complete(void);
 void wlan_flush_host_logs_for_fatal(void);
-void wlan_logging_set_active(bool active);
-void wlan_logging_set_log_to_console(bool log_to_console);
 #else
 static inline void wlan_flush_host_logs_for_fatal(void)
 {
