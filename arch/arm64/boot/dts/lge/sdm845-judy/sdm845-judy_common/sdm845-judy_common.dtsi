@@ -28,6 +28,10 @@
 	size = <0 0xB800000>;
 };
 
+&adsp_mem {
+	size = <0 0x800000>;
+};
+
 &qseecom_mem {
 	reg = <0 0xb2000000 0 0x1800000>;
 };
