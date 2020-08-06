@@ -13,6 +13,8 @@
 &qupv3_se14_i2c {
 	status = "okay";
 
+	qcom,clk-freq-out = <1000000>;
+
 	sw42000@28 {
 		status = "ok";
 		compatible = "lge,sw42000";
