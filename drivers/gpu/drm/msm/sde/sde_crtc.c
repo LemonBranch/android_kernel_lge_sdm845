@@ -4642,7 +4642,7 @@ static int sde_crtc_atomic_check(struct drm_crtc *crtc,
 
 	int cnt = 0, rc = 0, mixer_width, i, z_pos;
 
-	struct sde_multirect_plane_states *multirect_plane = NULL;
+	struct sde_multirect_plane_states multirect_plane[SDE_MULTIRECT_PLANE_MAX];
 	int multirect_count = 0;
 	const struct drm_plane_state *pipe_staged[SSPP_MAX];
 	int left_zpos_cnt = 0, right_zpos_cnt = 0;
@@ -4663,13 +4663,7 @@ static int sde_crtc_atomic_check(struct drm_crtc *crtc,
 
 	memset(pstates, 0, SDE_PSTATES_MAX * sizeof(struct plane_state));
 
-	multirect_plane = kzalloc(SDE_MULTIRECT_PLANE_MAX *
-		sizeof(struct sde_multirect_plane_states), GFP_KERNEL);
-
-	if (!multirect_plane) {
-		rc = -ENOMEM;
-		goto end;
-	}
+	memset(multirect_plane, 0, SDE_MULTIRECT_PLANE_MAX * sizeof(struct sde_multirect_plane_states));
 
 	mode = &state->adjusted_mode;
 	SDE_DEBUG("%s: check", sde_crtc->name);
@@ -4939,7 +4933,6 @@ static int sde_crtc_atomic_check(struct drm_crtc *crtc,
 	}
 
 end:
-	kfree(multirect_plane);
 	_sde_crtc_rp_free_unused(&cstate->rp);
 	return rc;
 }
