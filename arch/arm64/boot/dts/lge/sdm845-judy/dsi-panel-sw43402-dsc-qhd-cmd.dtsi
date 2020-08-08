@@ -398,6 +398,7 @@
 				qcom,mdss-dsi-v-top-border = <0>;
 				qcom,mdss-dsi-v-bottom-border = <0>;
 				qcom,mdss-dsi-h-sync-pulse = <0>;
+				qcom,mdss-dsi-panel-jitter = <0x8 0xa>;
 
 				qcom,mdss-dsi-on-command = [
 					39 01 00 00 00 00 03 B0 20 43

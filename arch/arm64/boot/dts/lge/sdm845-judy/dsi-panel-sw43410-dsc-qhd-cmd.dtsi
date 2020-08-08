@@ -478,6 +478,7 @@
 				qcom,mdss-dsi-v-bottom-border = <0>;
 				qcom,mdss-dsi-h-sync-pulse = <0>;
 				qcom,mdss-mdp-transfer-time-us = <15000>;
+				qcom,mdss-dsi-panel-jitter = <0x8 0xa>;
 
 				qcom,mdss-dsi-on-command = [
 					15 01 00 00 00 00 02 B0 AC
@@ -583,6 +584,7 @@
 				qcom,mdss-dsi-v-bottom-border = <0>;
 				qcom,mdss-dsi-h-sync-pulse = <0>;
 				qcom,mdss-mdp-transfer-time-us = <15000>;
+				qcom,mdss-dsi-panel-jitter = <0x8 0xa>;
 
 				qcom,mdss-dsi-on-command = [
 					15 01 00 00 00 00 02 B0 AC
@@ -689,6 +691,7 @@
 				qcom,mdss-dsi-v-bottom-border = <0>;
 				qcom,mdss-dsi-h-sync-pulse = <0>;
 				qcom,mdss-mdp-transfer-time-us = <15000>;
+				qcom,mdss-dsi-panel-jitter = <0x8 0xa>;
 
 				qcom,mdss-dsi-on-command = [
 					15 01 00 00 00 00 02 B0 AC
