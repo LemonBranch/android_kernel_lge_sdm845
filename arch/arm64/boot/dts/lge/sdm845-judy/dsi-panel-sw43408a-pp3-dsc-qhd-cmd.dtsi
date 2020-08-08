@@ -45,7 +45,6 @@
 		qcom,mdss-mdp-transfer-time-us = <15200>;
 		qcom,ulps-enabled;
 		qcom,suspend-ulps-enabled;
-		qcom,panel-allow-phy-poweroff;
 
 		qcom,mdss-dsi-panel-hdr-enabled;
 		qcom,mdss-dsi-panel-hdr-color-primaries = <14649 15851 33084 15473 13806 31961 7476 2719>;

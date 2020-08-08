@@ -42,7 +42,6 @@
 		qcom,mdss-mdp-transfer-time-us = <15200>;
 		qcom,ulps-enabled;
 		qcom,suspend-ulps-enabled;
-		qcom,panel-allow-phy-poweroff;
 		qcom,mdss-dsi-panel-peak-brightness = <5643000>;
 		qcom,mdss-dsi-panel-blackness-level = <6134>;
 
