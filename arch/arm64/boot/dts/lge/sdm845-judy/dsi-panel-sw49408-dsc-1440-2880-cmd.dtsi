@@ -40,8 +40,8 @@
 		qcom,mdss-dsi-te-dcs-command = <1>;
 		qcom,mdss-dsi-te-check-enable;
 		qcom,mdss-dsi-te-using-te-pin;
-//		qcom,ulps-enabled;
-//		qcom,suspend-ulps-enabled;
+		qcom,ulps-enabled;
+		qcom,suspend-ulps-enabled;
 		qcom,mdss-dsi-lp11-init;
 		qcom,mdss-dsi-tx-eot-append;
 //		qcom,mdss-mdp-transfer-time-us = <15200>;
