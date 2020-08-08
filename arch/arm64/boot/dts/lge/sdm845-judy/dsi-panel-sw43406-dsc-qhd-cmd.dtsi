@@ -143,6 +143,7 @@
 				qcom,mdss-dsi-h-right-border = <0>;
 				qcom,mdss-dsi-v-top-border = <0>;
 				qcom,mdss-dsi-v-bottom-border = <0>;
+				qcom,mdss-dsi-panel-jitter = <0x8 0xa>;
 				qcom,mdss-dsi-on-command = [
 					39 01 00 00 00 00 03 B0 60 43
 					15 01 00 00 00 00 02 3D 00
@@ -266,6 +267,7 @@
 					qcom,mdss-dsi-panel-timings = [00 14 05 05 08 0E 04 05 04 03 04 00];
 					qcom,mdss-dsi-t-clk-post = <0x06>;
 					qcom,mdss-dsi-t-clk-pre = <0x20>;
+					qcom,mdss-dsi-panel-jitter = <0x8 0xa>;
 
 					qcom,mdss-dsi-on-command = [
 						39 01 00 00 00 00 03 B0 20 43
@@ -325,6 +327,7 @@
 					qcom,mdss-dsi-panel-timings = [00 14 05 05 08 0E 04 05 04 03 04 00];
 					qcom,mdss-dsi-t-clk-post = <0x06>;
 					qcom,mdss-dsi-t-clk-pre = <0x20>;
+					qcom,mdss-dsi-panel-jitter = <0x8 0xa>;
 
 					qcom,mdss-dsi-on-command = [
 						39 01 00 00 00 00 03 B0 20 43
@@ -384,6 +387,7 @@
 					qcom,mdss-dsi-panel-timings = [00 14 05 05 08 0E 04 05 04 03 04 00];
 					qcom,mdss-dsi-t-clk-post = <0x06>;
 					qcom,mdss-dsi-t-clk-pre = <0x20>;
+					qcom,mdss-dsi-panel-jitter = <0x8 0xa>;
 
 					qcom,mdss-dsi-on-command = [
 						39 01 00 00 00 00 03 B0 20 43
