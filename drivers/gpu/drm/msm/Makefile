@@ -187,6 +187,8 @@ msm_drm-$(CONFIG_DRM_MSM) += \
 	msm_fence.o \
 	msm_debugfs.o
 
+msm_drm-$(CONFIG_DRM_MSM_EXP_ADJUST) += dsi-staging/dsi_exp_adjust.o
+
 obj-$(CONFIG_LGE_DISPLAY_COMMON) += lge/
 
 obj-$(CONFIG_DRM_MSM)	+= msm_drm.o
