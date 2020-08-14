@@ -26,6 +26,7 @@
 
 #include "dsi_panel.h"
 #include "dsi_ctrl_hw.h"
+#include "dsi_exp_adjust.h"
 
 #if IS_ENABLED(CONFIG_LGE_DISPLAY_COMMON)
 #include "../lge/lge_dsi_panel.h"
@@ -692,12 +693,22 @@ static int dsi_panel_update_backlight(struct dsi_panel *panel,
 int dsi_panel_set_backlight(struct dsi_panel *panel, u32 bl_lvl)
 {
 	int rc = 0;
+#ifdef CONFIG_DRM_MSM_EXP_ADJUST
+	int bl_dc_min = panel->bl_config.bl_min_level * 2;
+#endif
 	struct dsi_backlight_config *bl = &panel->bl_config;
 
 	if (panel->type == EXT_BRIDGE)
 		return 0;
 
 	pr_debug("backlight type:%d lvl:%d\n", bl->type, bl_lvl);
+
+#ifdef CONFIG_DRM_MSM_EXP_ADJUST
+	if (bl_lvl > 0)
+		bl_lvl = ea_panel_calc_backlight(
+			bl_lvl < bl_dc_min ? bl_dc_min : bl_lvl);
+#endif
+
 	switch (bl->type) {
 	case DSI_BACKLIGHT_WLED:
 #if IS_ENABLED(CONFIG_LGE_DISPLAY_USE_FSC)
@@ -3153,6 +3164,48 @@ void dsi_panel_put(struct dsi_panel *panel)
 	kfree(panel);
 }
 
+#ifdef CONFIG_DRM_MSM_EXP_ADJUST
+static struct dsi_panel *set_panel;
+static ssize_t dsi_panel_set_ea_enable(struct device *dev,
+				     struct device_attribute *attr,
+				     const char *buf, size_t len)
+{
+	u32 ea_enable;
+
+	if (sscanf(buf, "%d", &ea_enable) != 1) {
+		pr_err("sccanf buf error!\n");
+		return len;
+	}
+
+	ea_panel_mode_ctrl(set_panel, ea_enable != 0);
+
+	return len;
+}
+
+static ssize_t dsi_panel_get_ea_enable(struct device *dev,
+				     struct device_attribute *attr, char *buf)
+{
+	int ret;
+	bool ea_enable = ea_panel_is_enabled();
+
+	ret = scnprintf(buf, PAGE_SIZE, "%d\n", ea_enable ? 1 : 0);
+
+	return ret;
+}
+
+static DEVICE_ATTR(flicker_free, S_IRUGO | S_IWUSR, dsi_panel_get_ea_enable,
+		   dsi_panel_set_ea_enable);
+
+static struct attribute *dsi_panel_attrs[] = {
+	&dev_attr_flicker_free.attr,
+	NULL
+};
+
+static struct attribute_group dsi_panel_attr_group = {
+	.attrs = dsi_panel_attrs
+};
+#endif
+
 int dsi_panel_drv_init(struct dsi_panel *panel,
 		       struct mipi_dsi_host *host)
 {
@@ -3208,6 +3261,14 @@ int dsi_panel_drv_init(struct dsi_panel *panel,
 			       panel->name, rc);
 		goto error_gpio_release;
 	}
+
+#ifdef CONFIG_DRM_MSM_EXP_ADJUST
+	rc = sysfs_create_group(&(panel->parent->kobj), &dsi_panel_attr_group);
+	if (rc)
+		pr_err("sysfs group creation failed, rc=%d\n", rc);
+
+	set_panel = panel;
+#endif
 
 #if IS_ENABLED(CONFIG_LGE_DISPLAY_COMMON)
 	rc = lge_dsi_panel_drv_init(panel);
