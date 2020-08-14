@@ -123,6 +123,32 @@ config DRM_MSM_HDCP
 	help
 	  Chose this option if HDCP supported is needed in DRM/KMS driver.
 
+menu "MSM DRM exposure-based brightness control"
+	depends on DRM_MSM_DSI_STAGING
+
+config DRM_MSM_EXP_ADJUST
+	bool "Enable exposure-based brightness control in MSM DRM"
+	help
+	  Choose this option for exposure-based control of panel brightness
+	  using the DSPP API in order to avoid PWM flicker on OLED panels.
+
+config DRM_MSM_EXP_ADJUST_THR
+	int "Backlight threshold to disable Smart ELVSS"
+	depends on DRM_MSM_EXP_ADJUST
+	default 256
+
+config DRM_MSM_EXP_ADJUST_MIN
+	int "Minimum available PCC coefficient for the OLED panel"
+	depends on DRM_MSM_EXP_ADJUST
+	default 4096
+
+config DRM_MSM_EXP_ADJUST_MAX
+	int "Maximum available PCC coefficient for the OLED panel"
+	depends on DRM_MSM_EXP_ADJUST
+	default 32768
+
+endmenu
+
 config DRM_SDE_WB
 	bool "Enable Writeback support in SDE DRM"
 	depends on DRM_MSM
