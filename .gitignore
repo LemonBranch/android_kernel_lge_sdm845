@@ -119,3 +119,7 @@ all.config
 # fetched Android config fragments
 kernel/configs/android-*.cfg
 
+#
+# Out-of-tree modules
+#
+net/wireguard
