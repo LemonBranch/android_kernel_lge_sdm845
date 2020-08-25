@@ -122,4 +122,5 @@ kernel/configs/android-*.cfg
 #
 # Out-of-tree modules
 #
+fs/exfat
 net/wireguard
