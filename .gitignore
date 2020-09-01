@@ -123,6 +123,9 @@ kernel/configs/android-*.cfg
 #
 # Out-of-tree modules
 #
+drivers/staging/fw-api
+drivers/staging/qca-wifi-host-cmn
+drivers/staging/qcacld-3.0
 fs/exfat
 net/wireguard
 
