@@ -284,10 +284,7 @@ static void debug_polling(struct smb_charger* charger) {
 		pr_info("PMINFO: [ERR] usbin + dcin charging is not permitted\n");
 	}
 
-out:	pr_info("PMINFO: ---------------------------------------------"
-			"-----------------------------------------%s-END.\n",
-			unified_bootmode_marker());
-
+out:
 	vote(charger->awake_votable, POLLING_LOGGER_VOTER, false, 0);
 	return;
 }
