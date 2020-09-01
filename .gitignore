@@ -125,3 +125,8 @@ kernel/configs/android-*.cfg
 #
 fs/exfat
 net/wireguard
+
+#
+# Object directory
+#
+out/
