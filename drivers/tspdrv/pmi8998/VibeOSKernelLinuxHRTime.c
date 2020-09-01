@@ -70,10 +70,8 @@ static inline int VibeSemIsLocked(struct semaphore *lock)
 static enum hrtimer_restart VibeOSKernelTimerProc(struct hrtimer *timer)
 {
     /* Return right away if timer is not supposed to run */
-    if (!g_bTimerStarted) {
-        pr_err("%s: g_bTimerStarted : %d\n", __func__, g_bTimerStarted);
+    if (!g_bTimerStarted)
         return  HRTIMER_NORESTART;
-    }
 
     /* Scheduling next timeout value right away */
     if (++g_nWatchdogCounter < WATCHDOG_TIMEOUT)

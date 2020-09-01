@@ -58,8 +58,6 @@ extern int leds_haptic_timed_vmax(int value);
 
 IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_AmpDisable(VibeUInt8 nActuatorIndex)
 {
-    DbgOut((DBL_ERROR, "ImmVibeSPI_ForceOut_AmpDisable.\n"));
-
     return VIBE_S_SUCCESS;
 }
 
@@ -68,8 +66,6 @@ IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_AmpDisable(VibeUInt8 nActuatorIndex
 */
 IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_AmpEnable(VibeUInt8 nActuatorIndex)
 {
-    DbgOut((DBL_ERROR, "ImmVibeSPI_ForceOut_AmpEnable.\n"));
-
     return VIBE_S_SUCCESS;
 }
 
@@ -94,7 +90,6 @@ IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_Terminate(void)
     /* Set duty cycle to 50% */
     /* To be implemented with appropriate hardware access macros */
 
-    DbgOut((DBL_INFO, "ImmVibeSPI_ForceOut_Terminate.\n"));
     return VIBE_S_SUCCESS;
 }
 

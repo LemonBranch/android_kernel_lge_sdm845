@@ -591,8 +591,6 @@ static int dw7800_remove(struct i2c_client* client)
 #define NAK_RESEND_ATTEMPT 3
 IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_AmpDisable(VibeUInt8 nActuatorIndex)
 {
-    DbgOut((DBL_ERROR, "ImmVibeSPI_ForceOut_AmpDisable.\n"));
-
     /* Nothing to do. DW7800 enters standby when FIFO is empty. */
 
     return VIBE_S_SUCCESS;
@@ -603,8 +601,6 @@ IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_AmpDisable(VibeUInt8 nActuatorIndex
 */
 IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_AmpEnable(VibeUInt8 nActuatorIndex)
 {
-    DbgOut((DBL_ERROR, "ImmVibeSPI_ForceOut_AmpEnable.\n"));
-
     /* Set duty cycle to 50% */
     /* To be implemented with appropriate hardware access macros */
 
@@ -643,7 +639,6 @@ IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_Terminate(void)
     /* Set duty cycle to 50% */
     /* To be implemented with appropriate hardware access macros */
 
-    DbgOut((DBL_INFO, "ImmVibeSPI_ForceOut_Terminate.\n"));
     return VIBE_S_SUCCESS;
 }
 
